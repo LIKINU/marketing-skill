@@ -27,8 +27,9 @@ if [[ ! -d "$(dirname "$DEST")" ]]; then
     echo "❌ 上層目錄不存在，中止：$(dirname "$DEST")" >&2
     exit 1
 fi
-if [[ "$SRC" != *"marketing-playbook"* ]]; then
-    echo "❌ 來源路徑異常，中止：$SRC" >&2
+# 2026-09-16 改：不再綁定資料夾名（內容已平鋪到倉庫根），改用「這是不是 skill 根目錄」判斷
+if [[ ! -f "$SRC/SKILL.md" || ! -d "$SRC/references" ]]; then
+    echo "❌ 來源路徑異常（找不到 SKILL.md／references），中止：$SRC" >&2
     exit 1
 fi
 
