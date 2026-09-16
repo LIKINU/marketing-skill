@@ -77,7 +77,7 @@ cat > "$DEST/存檔說明.md" <<EOF
 | \`AGENTS.md\` | 跨工具接入手册（GPT／Claude Code／豆包等平台的降級方案） |
 | \`README.md\` | 使用說明 ＋ 三句兜底話術 ＋「卡死了怎麼辦」 |
 | \`references/\` | 打法庫 104 條／方法論手冊 63 個模型／**50 大類 628 張案例卡**／方案寫作指南／多 Agent 分工簡報／**質量範式（08 號）**／**交付稿範例（簡體）** |
-| \`scripts/\` | 5 個校驗腳本：\`gate_check\`／\`budget_check\`／\`selfcheck\`／\`depth_check\`／\`build_docx\` |
+| \`scripts/\` | **6 個腳本：\`run_pipeline\`（唯一出稿入口，串起全部校驗）**／\`gate_check\`／\`budget_check\`／\`selfcheck\`／\`depth_check\`／\`build_docx\` |
 
 ## 怎麼查
 
