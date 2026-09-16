@@ -66,7 +66,7 @@ cat > "$DEST/存檔說明.md" <<EOF
 
 - **觸發時機**：git push 前（pre-push hook）
 - **同步方式**：rsync 鏡像（源刪掉的文件，這裡也刪掉）
-- **手動同步**：\`cd $HOME/Desktop/Marketing-skill && bash scripts/sync-to-obsidian.sh\`
+- **手動同步**：\`cd ~/Desktop/Marketing-skill && bash scripts/sync-to-obsidian.sh\`
 - **排除項**：\`.git\`（版本歷史）、\`.DS_Store\`
 
 ## 內容
