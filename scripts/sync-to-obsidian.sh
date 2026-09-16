@@ -39,6 +39,8 @@ mkdir -p "$DEST"
 rsync -a --delete \
     --exclude '.git' \
     --exclude '.DS_Store' \
+    --exclude '.workbuddy' \
+    --exclude '实测-*' \
     "$SRC/" "$DEST/"
 
 # ---------- 重新生成存檔說明（含當前 commit 與時間）----------
@@ -76,8 +78,8 @@ cat > "$DEST/存檔說明.md" <<EOF
 | \`SKILL.md\` | **主入口**：門禁 13 項 ＋ 八條強制協議 ＋ 六步工作流 ＋ 交付物規範 ＋ 自檢清單 |
 | \`AGENTS.md\` | 跨工具接入手册（GPT／Claude Code／豆包等平台的降級方案） |
 | \`README.md\` | 使用說明 ＋ 三句兜底話術 ＋「卡死了怎麼辦」 |
-| \`references/\` | 打法庫 104 條／方法論手冊 63 個模型／**50 大類 628 張案例卡**／方案寫作指南／多 Agent 分工簡報／**質量範式（08 號）**／**交付稿範例（簡體）** |
-| \`scripts/\` | **6 個腳本：\`run_pipeline\`（唯一出稿入口，串起全部校驗）**／\`gate_check\`／\`budget_check\`／\`selfcheck\`／\`depth_check\`／\`build_docx\` |
+| \`references/\` | 打法庫 104 條／方法論手冊 **111 個模型**／**50 大類 628 張案例卡**／方案寫作指南／多 Agent 分工簡報／操作流程 SOP（09）／**質量範式（08 號）**／**交付稿範例（簡體）** |
+| \`scripts/\` | **\`flow.py\`（流程嚮導）／\`composer.py\`（方案組裝器，知識機械注入）／\`run_pipeline\`（唯一出稿入口，串起全部校驗）**／\`gate_check\`／\`role_check\`／\`budget_check\`／\`selfcheck\`／\`depth_check\`／\`build_docx\`／\`reformat_to_template\`／\`case_lint\`／\`knowledge_map.json\` |
 
 ## 怎麼查
 
