@@ -59,12 +59,18 @@ except Exception:
     n_play = n_model = "?"
 n_case = len(glob.glob("references/cases/[0-9][0-9]-*.md"))
 n_ref = len(glob.glob("references/[0-9][0-9]-*.md"))
-n_script = len(glob.glob("scripts/*.py")) + len(glob.glob("scripts/*.sh"))
+# 脚本数口径＝`scripts/*.py`（与 SKILL.md／README 一致）；`.sh` 另计，
+# 2026-09-18 修：原先把 .py 与 .sh 加在一起报「46 支」，与 SKILL 的 45 对不上 —— 又是分母不一致。
+n_script = len(glob.glob("scripts/*.py"))
+n_sh = len(glob.glob("scripts/*.sh"))
 qf = [f for f in glob.glob("references/*质量范式*") if f.endswith(".md")]
-print(f"{n_play}|{n_model}|{n_case}|{n_ref}|{n_script}|{qf[0] if qf else '?'}")
+print(f"{n_play}|{n_model}|{n_case}|{n_ref}|{n_script}|{qf[0] if qf else '?'}|{n_sh}")
 PY
 )"
-IFS='|' read -r N_PLAY N_MODEL N_CASE N_REF N_SCRIPT QF_PATH <<<"$STATS"
+IFS='|' read -r N_PLAY N_MODEL N_CASE N_REF N_SCRIPT QF_PATH N_SH <<<"$STATS"
+# ⚠️ 下面这些变量一律写 ${VAR} 带花括号：`$VAR` 后面若紧跟中文（如「$QF_PATH（质量标尺）」），
+#    bash 会把多字节字符当成变量名的一部分 → `set -u` 直接报 unbound variable。
+#    2026-09-18 实测踩过：`bash -n` 语法检查**通过**（它不求值展开），跑到一半才炸。
 
 # ---------- 重新生成存档说明（含当前 commit 与时间）----------
 SHA="$(git -C "$SRC" rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
@@ -73,11 +79,15 @@ NOW="$(date '+%Y-%m-%d %H:%M')"
 FILES="$(find "$DEST" -type f -not -name '存档说明.md' | wc -l | tr -d ' ')"
 SIZE="$(du -sh "$DEST" 2>/dev/null | cut -f1)"
 
+# ⚠️ 下面这个 heredoc **没有加引号**（要展开 ${VAR}），所以在里面写 Markdown 反引号
+#    **必须转义成 \`**：不转义会被 bash 当命令替换**真的去执行**。
+#    2026-09-18 实测踩过：写成 `scripts/*.py` → 通配命中 scripts/_common.py → Permission denied。
+#    `bash -n` 查不出来（语法合法）。
 cat > "$DEST/存档说明.md" <<EOF
 # 营销 Skill 离线存档说明
 
 > ⚙️ **本存档由 \`scripts/sync-to-obsidian.sh\` 自动同步** —— 无需手动维护。
-> **最后同步**：$NOW ｜ **版本**：\`$SHA\`（分支 ${BRANCH}）｜ **规模**：$FILES 个文件案 / $SIZE
+> **最后同步**：$NOW ｜ **版本**：\`$SHA\`（分支 ${BRANCH}）｜ **规模**：$FILES 个文件 / $SIZE
 
 **在线仓库**：https://github.com/LIKINU/marketing-skill
 **本地工作区**：\`$HOME/Desktop/Marketing-skill/\`
@@ -101,8 +111,8 @@ cat > "$DEST/存档说明.md" <<EOF
 | \`SKILL.md\` | **主入口**：门禁 13 项 ＋ 七条强制执行协议 ＋ 六步工作流 ＋ 交付物规范 ＋ 自检清单 |
 | \`AGENTS.md\` | 跨工具接入手册（GPT／Claude Code／豆包等平台的降级方案） |
 | \`README.md\` | 使用说明 ＋ 仓库地图 ＋「卡死了怎么办」 |
-| \`references/\` | **$N_REF 份编号文档**：打法库 **$N_PLAY 条**／方法论手册 **$N_MODEL 个模型**／**$N_CASE 大类案例库**／「$QF_PATH」（质量标尺）／跨工具与操作 SOP／顶级机构对标标准 |
-| \`scripts/\` | **$N_SCRIPT 支脚本**（强制层，校验不过拿不到 \`.docx\`）：**\`flow.py\`（流程向导）／\`composer.py\`（方案组装器，知识机械注入）／\`run_pipeline.py\`（唯一出稿入口）／\`selfcheck.py\`（18 关自检）／\`kb_audit.py\`（知识库连通性审计）／\`verify_all.py\`（全链路＋幂等压测）** 等 |
+| \`references/\` | **${N_REF} 份编号文档**：打法库 **${N_PLAY} 条**／方法论手册 **${N_MODEL} 个模型**／**${N_CASE} 大类案例库**／「${QF_PATH}」（质量标尺）／跨工具与操作 SOP／顶级机构对标标准 |
+| \`scripts/\` | **${N_SCRIPT} 支 Python 脚本 ＋ ${N_SH} 支同步脚本**（强制层，校验不过拿不到 \`.docx\`）：**\`flow.py\`（流程向导）／\`composer.py\`（方案组装器，知识机械注入）／\`run_pipeline.py\`（唯一出稿入口）／\`selfcheck.py\`（18 关自检）／\`kb_audit.py\`（知识库连通性审计）／\`verify_all.py\`（全链路＋幂等压测）** 等 |
 
 ## 怎么查
 
@@ -110,8 +120,8 @@ cat > "$DEST/存档说明.md" <<EOF
 |---|---|
 | **怎么用**（接案 SOP ＋ 生成器规范摘要） | C 层 [[营销接案工具箱]] 第七节「方案生成器用法」 |
 | **规范细节** | 本存档 \`SKILL.md\` |
-| **质量标准** | 本存档 \`$QF_PATH\`（角色产出规格／骨架模板／可校验指标） |
-| **具体案例** | 本存档 \`references/cases/\`（$N_CASE 个大类）｜**成品样张**：\`references/范例/\` |
+| **质量标准** | 本存档 \`${QF_PATH}\`（角色产出规格／骨架模板／可校验指标） |
+| **具体案例** | 本存档 \`references/cases/\`（${N_CASE} 个大类）｜**成品样张**：\`references/范例/\` |
 | **跨平台怎么跑** | 本存档 \`AGENTS.md\` |
 
 ## 已知限制
