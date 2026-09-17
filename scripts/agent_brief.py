@@ -55,7 +55,8 @@ GROUPS = [
                       "case_scan.py", "case_clean.py", "case_relabel.py", "case_digest.py",
                       "case_gap_fill.py", "case_play_index.py", "fix_play_cases.py",
                       "play_case_candidates.py", "backlog_cleanup.py"]),
-    ("⑦ 倉庫維護", ["file_meta.py", "rename_tidy.py", "top_titles.py", "relocate_06.py"]),
+    ("⑦ 倉庫維護", ["repo_hygiene.py", "file_meta.py", "rename_tidy.py", "top_titles.py",
+                    "relocate_06.py"]),
     ("⑧ 共用", ["_common.py"]),
 ]
 

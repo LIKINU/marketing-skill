@@ -19,7 +19,7 @@
 |---|---|---|
 | `references/` 編號文檔 | 14 份 | 849字 |
 | `references/cases/` 行業案例 | 52 份 | 3450字 |
-| `scripts/` | 43 支（37 支有 CLI） | — |
+| `scripts/` | 44 支（38 支有 CLI） | — |
 | 範式庫 | 6 檔 | 見 `references/12-范式库.md` |
 | **合計** | — | **4299字** |
 
@@ -47,7 +47,7 @@ scripts/        強制層：知識注入 + 校驗 + 出稿
 - **④ 出稿**：`run_pipeline.py` · `build_docx.py` · `reformat_to_template.py`
 - **⑤ 品質保障**：`verify_all.py` · `kb_audit.py` · `promise_check.py` · `optimize_scan.py` · `smoke_test.py` · `t2s_data.py`
 - **⑥ 案例庫維護**：`case_sections.py` · `case_order.py` · `case_lint.py` · `case_upgrade.py` · `case_scan.py` · `case_clean.py` · `case_relabel.py` · `case_digest.py` · `case_gap_fill.py` · `case_play_index.py` · `fix_play_cases.py` · `play_case_candidates.py` · `backlog_cleanup.py`
-- **⑦ 倉庫維護**：`file_meta.py` · `rename_tidy.py` · `top_titles.py` · `relocate_06.py`
+- **⑦ 倉庫維護**：`repo_hygiene.py` · `file_meta.py` · `rename_tidy.py` · `top_titles.py` · `relocate_06.py`
 - **⑧ 共用**：`_common.py`
 - **其他**：`agent_brief.py` · `case_upkit.py` · `impact.py`
 
