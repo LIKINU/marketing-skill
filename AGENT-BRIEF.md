@@ -19,7 +19,7 @@
 |---|---|---|
 | `references/` 编号文档 | 14 份 | 849字 |
 | `references/cases/` 行业案例 | 52 份 | 3450字 |
-| `scripts/` | 45 支（39 支有 CLI） | — |
+| `scripts/` | 46 支（40 支有 CLI） | — |
 | 范式库 | 6 档 | 见 `references/12-范式库.md` |
 | **合计** | — | **4299字** |
 
@@ -49,7 +49,7 @@ scripts/        强制层：知识注入 + 校验 + 出稿
 - **⑥ 案例库维护**：`case_sections.py` · `case_order.py` · `case_lint.py` · `case_upgrade.py` · `case_scan.py` · `case_clean.py` · `case_relabel.py` · `case_digest.py` · `case_gap_fill.py` · `case_play_index.py` · `fix_play_cases.py` · `play_case_candidates.py` · `backlog_cleanup.py`
 - **⑦ 仓库维护**：`lang_unify.py` · `repo_hygiene.py` · `file_meta.py` · `rename_tidy.py` · `top_titles.py` · `relocate_06.py`
 - **⑧ 共用**：`_common.py`
-- **其他**：`agent_brief.py` · `case_upkit.py` · `impact.py`
+- **其他**：`agent_brief.py` · `case_upkit.py` · `impact.py` · `industry_rules.py`
 
 ## 五、18 关机械自检（`selfcheck.py`，任一硬错误＝不得交付）
 
